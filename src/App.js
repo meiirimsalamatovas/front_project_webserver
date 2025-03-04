@@ -90,42 +90,54 @@ const App = () => {
         }
       ]);
 
-      const [cart, setCart] = useState([]);
 
-      const [filteredItems, setFilteredItems] = useState(items);
+  const [cart, setCart] = useState([]);
+  const [filteredItems, setFilteredItems] = useState(items);
+  const [searchQuery, setSearchQuery] = useState("");
 
-    
-      const addToCart = (item) => {
-        setCart((prevCart) => [...prevCart, item]);
-      };
-    
-      const removeFromCart = (itemToRemove) => {
-        setCart((prevCart) => prevCart.filter(item => item.id !== itemToRemove.id));
-      };
+ 
+  const addToCart = (item) => {
+    setCart((prevCart) => [...prevCart, item]);
+  };
+
+ 
+  const removeFromCart = (itemToRemove) => {
+    setCart((prevCart) => prevCart.filter(item => item.id !== itemToRemove.id));
+  };
 
 
-      const filterItems = (category) => {
-        setFilteredItems(category === "all" ? items : items.filter(item => item.category === category));
-      };
+  const filterItems = (category) => {
+    setFilteredItems(category === "all" ? items : items.filter(item => item.category === category));
+  };
 
-      const categories = ["all", "ring", "earring", "bracelet", "necklace"];
-    
-      return (
-        <Router>
-          <div className="wrapper">
-            <Header />
-            <div className="main-container">
-              <Sidebar categories={["all", "ring", "earring", "bracelet", "necklace"]} filterItems={filterItems} />
-              <Routes>
-                <Route path="/" element={<Items items={filteredItems} addToCart={addToCart} />} />
-                <Route path="/cart" element={<Cart cart={cart} removeFromCart={removeFromCart} />} />
-              </Routes>
-            </div>
-            <Footer />
-          </div>
-        </Router>
-      );
-    };
-    
-    export default App;
-    
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setFilteredItems(
+      items.filter(item => item.name.toLowerCase().includes(query.toLowerCase()))
+    );
+  };
+
+  const categories = ["all", "ring", "earring", "bracelet", "necklace", "brooch"];
+
+  return (
+    <Router>
+      <div className="wrapper">
+        <Header handleSearch={handleSearch} />
+
+        <div className="main-container">
+          <Sidebar categories={categories} filterItems={filterItems} />
+          
+          <Routes>
+            <Route path="/" element={<Items items={filteredItems} addToCart={addToCart} />} />
+            <Route path="/cart" element={<Cart cart={cart} removeFromCart={removeFromCart} />} />
+          </Routes>
+        </div>
+
+        <Footer />
+      </div>
+    </Router>
+  );
+};
+
+export default App;

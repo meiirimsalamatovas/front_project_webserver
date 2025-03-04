@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { IoMdClose, IoMdMenu } from "react-icons/io"; 
 
 const Sidebar = ({ categories, filterItems }) => {
