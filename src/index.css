@@ -156,6 +156,60 @@ header .cart-btn:hover{
 
 
 
+form button {
+  padding: 8px 12px;
+  background: #dfd0c1;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+  border-radius: 10px;
+
+}
+
+form button:hover {
+  background: #463626;
+}
+
+.order-form {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f1f1f1;
+  border-radius: 8px;
+
+}
+
+.order-form h3 {
+  margin-bottom: 15px;
+}
+
+.order-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.order-form input:focus {
+  outline: none;
+  border-color: #dfd0c1;
+}
+
+.order-form button {
+  width: 100%;
+  padding: 10px;
+  background: #dfd0c1;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.order-form button:hover {
+  background: #382f26;
+}
+
 main {
   display: flex;
   flex-wrap: wrap;
