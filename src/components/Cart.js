@@ -21,8 +21,8 @@ const Cart = ({ cart, removeFromCart }) => {
       {cart.length === 0 ? (
         <p className="empty-cart">Your cart is empty.</p>
       ) : (
-        cart.map((item, index) => (
-          <div key={index} className="item">
+        cart.map((item) => (
+          <div key={item.id} className="item">
             <img src={`/img/${item.image}`} alt={item.name} />
             <h2>{item.name}</h2>
             <b>{item.price}$</b>
