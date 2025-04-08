@@ -3,16 +3,16 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { GiShoppingCart } from "react-icons/gi";
 
-const Header = ({ handleSearch }) => {
+const Header = ({ filterBySearch }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleChange = (event) => {
+  const updateSearchQuery = (event) => {
     setSearchQuery(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const submitSearch = (event) => {
     event.preventDefault();
-    handleSearch(searchQuery);
+    filterBySearch(searchQuery);
   };
 
   return (
@@ -20,12 +20,12 @@ const Header = ({ handleSearch }) => {
       <div className="header-content">
         <span className="logo">Jewelry Store</span>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitSearch}>
           <input
             type="text"
             placeholder="Search for jewelry..."
             value={searchQuery}
-            onChange={handleChange}
+            onChange={updateSearchQuery}
             className="search-input"
           />
           <button type="submit">Search</button>

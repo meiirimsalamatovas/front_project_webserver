@@ -1,14 +1,16 @@
 
-
-
 import React, { useState } from "react";
 
 const Cart = ({ cart, removeFromCart }) => {
   const [order, setOrder] = useState({ name: "", email: "", address: "" });
 
   const handleChange = (e) => {
-    setOrder({ ...order, [e.target.name]: e.target.value });
+    setOrder((prevOrder) => ({
+      ...prevOrder,
+      [e.target.name]: e.target.value,
+    }));
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
