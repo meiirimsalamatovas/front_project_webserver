@@ -5,9 +5,13 @@ import Footer from "./components/Footer";
 import Items from "./components/Items";
 import Cart from "./components/Cart";
 import Sidebar from "./components/Sidebar";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import useAuth from "./hooks/useAuth";
+
 
 const App = () => {
-  const [items, setItems] = useState([
+  const [items] = useState([
     {
       id: 1,
       name: "Silver Ring",
@@ -70,7 +74,7 @@ const App = () => {
       price: 250,
       image: "Emerald Brooch.jpg",
       description: "Vintage brooch with a large emerald centerpiece.",
-      category:"brooch"
+      category: "brooch"
     },
     {
       id: 9,
@@ -132,13 +136,33 @@ const App = () => {
 
   const [cart, setCart] = useState([]);
   const [filteredItems, setFilteredItems] = useState(items);
+  const user = useAuth();
 
   const addToCart = (item) => {
-    setCart((prevCart) => [...prevCart, item]);
+    setCart((prevCart) => {
+      const itemExists = prevCart.find((cartItem) => cartItem.id === item.id);
+      if (itemExists) {
+        return prevCart.map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        );
+      } else {
+        return [...prevCart, { ...item, quantity: 1 }];
+      }
+    });
   };
 
   const removeFromCart = (itemToRemove) => {
     setCart((prevCart) => prevCart.filter(item => item.id !== itemToRemove.id));
+  };
+
+  const updateCartQuantity = (item, newQuantity) => {
+    setCart(
+      cart.map((cartItem) =>
+        cartItem.id === item.id ? { ...cartItem, quantity: newQuantity } : cartItem
+      )
+    );
   };
 
   const filterItems = (category) => {
@@ -162,8 +186,10 @@ const App = () => {
           <Sidebar categories={categories} filterItems={filterItems} />
           
           <Routes>
-            <Route path="/" element={<Items items={filteredItems} addToCart={addToCart} />} />
-            <Route path="/cart" element={<Cart cart={cart} removeFromCart={removeFromCart} />} />
+            <Route path="/" element={<Items items={filteredItems} addToCart={addToCart} user={user} />} />
+            <Route path="/cart" element={<Cart cart={cart} removeFromCart={removeFromCart} updateCartQuantity={updateCartQuantity} />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </div>
 

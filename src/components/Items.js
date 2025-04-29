@@ -3,7 +3,7 @@ import React from "react";
 import { FixedSizeList as List } from "react-window";
 import Item from './Item';
 
-export default function Items({ items, addToCart }) {
+export default function Items({ items, addToCart, user  }) {
   const itemsPerRow = 3;
   const rowCount = Math.ceil(items.length / itemsPerRow);
   const rowHeight = 620; 
@@ -16,7 +16,7 @@ export default function Items({ items, addToCart }) {
       <div style={{ ...style, display: 'flex', gap: '20px', padding: '10px' }}>
         {rowItems.map((item) => (
           <div key={item.id} style={{ flex: 1 }}>
-            <Item item={item} addToCart={addToCart} />
+            <Item item={item} addToCart={addToCart} user={user} />
           </div>
         ))}
       </div>
